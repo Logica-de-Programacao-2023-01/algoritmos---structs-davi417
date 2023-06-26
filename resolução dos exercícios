@@ -1,0 +1,463 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Circulo struct {
+	raio float64
+}
+
+func main() {
+	circulo := Circulo{raio: 2.5}
+	area := calcularAreaCirculo(circulo)
+	fmt.Printf("A área do círculo é: %.2f\n", area)
+}
+
+func calcularAreaCirculo(c Circulo) float64 {
+	area := math.Pi * c.raio * c.raio
+	return area
+}
+
+package main
+
+import "fmt"
+
+type Endereco struct {
+	rua     string
+	numero  int
+	cidade  string
+	estado  string
+}
+
+type Pessoa struct {
+	nome     string
+	idade    int
+	endereco Endereco
+}
+
+func main() {
+	pessoa := Pessoa{
+		nome:  "João",
+		idade: 30,
+		endereco: Endereco{
+			rua:    "Rua A",
+			numero: 123,
+			cidade: "São Paulo",
+			estado: "SP",
+		},
+	}
+	imprimirEndereco(pessoa)
+}
+
+func imprimirEndereco(p Pessoa) {
+	fmt.Printf("Endereço de %s:\n", p.nome)
+	fmt.Printf("Rua: %s, %d\n", p.endereco.rua, p.endereco.numero)
+	fmt.Printf("Cidade: %s, %s\n", p.endereco.cidade, p.endereco.estado)
+}
+
+package main
+
+import "fmt"
+
+type Triangulo struct {
+	base   float64
+	altura float64
+}
+
+func main() {
+	triangulo := Triangulo{base: 5.0, altura: 3.0}
+	area := calcularAreaTriangulo(triangulo)
+	fmt.Printf("A área do triângulo é: %.2f\n", area)
+}
+
+func calcularAreaTriangulo(t Triangulo) float64 {
+	area := (t.base * t.altura) / 2
+	return area
+}
+
+package main
+
+import "fmt"
+
+type Musica struct {
+	titulo  string
+	artista string
+	duracao int
+}
+
+type Playlist struct {
+	nome    string
+	musicas []Musica
+}
+
+func main() {
+	musicas := []Musica{
+		{titulo: "Música 1", artista: "Artista 1", duracao: 180},
+		{titulo: "Música 2", artista: "Artista 2", duracao: 240},
+		{titulo: "Música 3", artista: "Artista 3", duracao: 200},
+	}
+	playlist := Playlist{nome: "Minha Playlist", musicas: musicas}
+	imprimirPlaylist(playlist)
+}
+
+func imprimirPlaylist(p Playlist) {
+	fmt.Println("Nome da Playlist:", p.nome)
+	fmt.Println("Tempo Total da Playlist:", calcularTempoTotal(p), "segundos")
+	fmt.Println("Músicas:")
+	for _, musica := range p.musicas {
+		fmt.Printf("Título: %s\n", musica.titulo)
+		fmt.Printf("Artista: %s\n", musica.artista)
+		fmt.Printf("Duração: %d segundos\n", musica.duracao)
+		fmt.Println()
+	}
+}
+
+func calcularTempoTotal(p Playlist) int {
+	total := 0
+	for _, musica := range p.musicas {
+		total += musica.duracao
+	}
+	return total
+}
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type Musica struct {
+	titulo   string
+	artista  string
+	duracao  time.Duration
+}
+
+type Playlist struct {
+	nome    string
+	musicas []Musica
+}
+
+func main() {
+	musicas1 := []Musica{
+		{titulo: "Música 1", artista: "Artista 1", duracao: 3 * time.Minute},
+		{titulo: "Música 2", artista: "Artista 2", duracao: 4 * time.Minute},
+		{titulo: "Música 3", artista: "Artista 3", duracao: 5 * time.Minute},
+	}
+	musicas2 := []Musica{
+		{titulo: "Música 4", artista: "Artista 4", duracao: 3 * time.Minute},
+		{titulo: "Música 5", artista: "Artista 5", duracao: 4 * time.Minute},
+		{titulo: "Música 6", artista: "Artista 6", duracao: 5 * time.Minute},
+	}
+	playlists := []Playlist{
+		{nome: "Minha Playlist 1", musicas: musicas1},
+		{nome: "Minha Playlist 2", musicas: musicas2},
+	}
+	titulo := "Música 2"
+	listaPlaylists := encontrarPlaylistsPorTitulo(playlists, titulo)
+	fmt.Printf("Playlists com o título '%s':\n", titulo)
+	for _, playlist := range listaPlaylists {
+		fmt.Println("-", playlist.nome)
+	}
+}
+
+func encontrarPlaylistsPorTitulo(playlists []Playlist, titulo string) []Playlist {
+	resultado := make([]Playlist, 0)
+	for _, playlist := range playlists {
+		for _, musica := range playlist.musicas {
+			if musica.titulo == titulo {
+				resultado = append(resultado, playlist)
+				break
+			}
+		}
+	}
+	return resultado
+}
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type Funcionario struct {
+	nome    string
+	salario float64
+	idade   int
+}
+
+func main() {
+	funcionario := Funcionario{
+		nome:    "Fulano",
+		salario: 1000,
+		idade:   30,
+	}
+	fmt.Println("Salário antes:", funcionario.salario)
+	aumentarSalario(&funcionario, 10)
+	fmt.Println("Salário após aumento:", funcionario.salario)
+	diminuirSalario(&funcionario, 5)
+	fmt.Println("Salário após diminuição:", funcionario.salario)
+	tempoServico := calcularTempoServico(funcionario.idade)
+	fmt.Println("Tempo de serviço:", tempoServico)
+}
+
+func aumentarSalario(f *Funcionario, percentual float64) {
+	f.salario *= (1 + percentual/100)
+}
+
+func diminuirSalario(f *Funcionario, percentual float64) {
+	f.salario *= (1 - percentual/100)
+}
+
+func calcularTempoServico(idade int) time.Duration {
+	idadeInicioTrabalho := 18
+	anosServico := idade - idadeInicioTrabalho
+	return time.Duration(anosServico) * time.Hour * 24 * 365
+}
+
+package main
+
+import (
+	"fmt"
+)
+
+type Animal struct {
+	nome   string
+	especie string
+	idade  int
+	som    string
+}
+
+func main() {
+	animal := Animal{
+		nome:   "Rex",
+		especie: "Cachorro",
+		idade:  5,
+		som:    "Au Au",
+	}
+	fmt.Println("Antes:")
+	imprimirAnimal(animal)
+	mudarSom(&animal, "Grrr")
+	fmt.Println("Depois:")
+	imprimirAnimal(animal)
+}
+
+func mudarSom(a *Animal, novoSom string) {
+	a.som = novoSom
+}
+
+func imprimirAnimal(a Animal) {
+	fmt.Println("Nome:", a.nome)
+	fmt.Println("Espécie:", a.especie)
+	fmt.Println("Idade:", a.idade)
+	fmt.Println("Som:", a.som)
+}
+
+package main
+
+import (
+	"fmt"
+)
+
+type Viagem struct {
+	origem  string
+	destino string
+	data    string
+	preco   float64
+}
+
+func main() {
+	viagens := []Viagem{
+		{origem: "São Paulo", destino: "Rio de Janeiro", data: "2023-06-01", preco: 200},
+		{origem: "São Paulo", destino: "Brasília", data: "2023-07-01", preco: 300},
+		{origem: "São Paulo", destino: "Salvador", data: "2023-08-01", preco: 250},
+	}
+	viagemMaisCara := encontrarViagemMaisCara(viagens)
+	fmt.Println("Viagem mais cara:")
+	fmt.Println("Origem:", viagemMaisCara.origem)
+	fmt.Println("Destino:", viagemMaisCara.destino)
+	fmt.Println("Data:", viagemMaisCara.data)
+	fmt.Println("Preço:", viagemMaisCara.preco)
+}
+
+func encontrarViagemMaisCara(viagens []Viagem) Viagem {
+	viagemMaisCara := viagens[0]
+	for _, viagem := range viagens {
+		if viagem.preco > viagemMaisCara.preco {
+			viagemMaisCara = viagem
+		}
+	}
+	return viagemMaisCara
+}
+
+package main
+
+import (
+	"fmt"
+)
+
+type Aluno struct {
+	nome  string
+	idade int
+	notas []float64
+}
+
+func main() {
+	aluno := Aluno{
+		nome:  "Fulano",
+		idade: 20,
+		notas: []float64{7.5, 8.0, 6.5},
+	}
+	imprimirInformacoesAluno(aluno)
+	adicionarNota(&aluno, 7.0)
+	imprimirInformacoesAluno(aluno)
+	removerNota(&aluno, 8.0)
+	imprimirInformacoesAluno(aluno)
+	media := calcularMediaNotas(aluno.notas)
+	fmt.Println("Média das notas:", media)
+}
+
+func adicionarNota(a *Aluno, nota float64) {
+	a.notas = append(a.notas, nota)
+}
+
+func removerNota(a *Aluno, nota float64) {
+	for i, n := range a.notas {
+		if n == nota {
+			a.notas = append(a.notas[:i], a.notas[i+1:]...)
+			break
+		}
+	}
+}
+
+func calcularMediaNotas(notas []float64) float64 {
+	soma := 0.0
+	for _, nota := range notas {
+		soma += nota
+	}
+	return soma / float64(len(notas))
+}
+
+func imprimirInformacoesAluno(a Aluno) {
+	fmt.Println("Nome:", a.nome)
+	fmt.Println("Idade:", a.idade)
+	fmt.Println("Notas:", a.notas)
+}
+
+package main
+
+import (
+	"fmt"
+)
+
+type Filme struct {
+	titulo     string
+	diretor    string
+	ano        int
+	avaliacoes []int
+}
+
+func main() {
+	filme := Filme{
+		titulo:     "Filme 1",
+		diretor:    "Diretor 1",
+		ano:        2022,
+		avaliacoes: []int{7, 8, 9},
+	}
+	imprimirInformacoesFilme(filme)
+	adicionarAvaliacao(&filme, 10)
+	imprimirInformacoesFilme(filme)
+	removerAvaliacao(&filme, 7)
+	imprimirInformacoesFilme(filme)
+	media := calcularMediaAvaliacoes(filme.avaliacoes)
+	fmt.Println("Média das avaliações:", media)
+}
+
+func adicionarAvaliacao(f *Filme, avaliacao int) {
+	f.avaliacoes = append(f.avaliacoes, avaliacao)
+}
+
+func removerAvaliacao(f *Filme, avaliacao int) {
+	for i, a := range f.avaliacoes {
+		if a == avaliacao {
+			f.avaliacoes = append(f.avaliacoes[:i], f.avaliacoes[i+1:]...)
+			break
+		}
+	}
+}
+
+func calcularMediaAvaliacoes(avaliacoes []int) float64 {
+	soma := 0
+	for _, a := range avaliacoes {
+		soma += a
+	}
+	return float64(soma) / float64(len(avaliacoes))
+}
+
+func imprimirInformacoesFilme(f Filme) {
+	fmt.Println("Título:", f.titulo)
+	fmt.Println("Diretor:", f.diretor)
+	fmt.Println("Ano:", f.ano)
+	fmt.Println("Avaliações:", f.avaliacoes)
+}
+
+package main
+
+import (
+	"fmt"
+)
+
+type Filme struct {
+	titulo     string
+	diretor    string
+	ano        int
+	avaliacoes []int
+}
+
+func main() {
+	filme := Filme{
+		titulo:     "Filme 1",
+		diretor:    "Diretor 1",
+		ano:        2022,
+		avaliacoes: []int{7, 8, 9},
+	}
+	imprimirInformacoesFilme(filme)
+	adicionarAvaliacao(&filme, 10)
+	imprimirInformacoesFilme(filme)
+	removerAvaliacao(&filme, 7)
+	imprimirInformacoesFilme(filme)
+	media := calcularMediaAvaliacoes(filme.avaliacoes)
+	fmt.Println("Média das avaliações:", media)
+}
+
+func adicionarAvaliacao(f *Filme, avaliacao int) {
+	f.avaliacoes = append(f.avaliacoes, avaliacao)
+}
+
+func removerAvaliacao(f *Filme, avaliacao int) {
+	for i, a := range f.avaliacoes {
+		if a == avaliacao {
+			f.avaliacoes = append(f.avaliacoes[:i], f.avaliacoes[i+1:]...)
+			break
+		}
+	}
+}
+
+func calcularMediaAvaliacoes(avaliacoes []int) float64 {
+	soma := 0
+	for _, a := range avaliacoes {
+		soma += a
+	}
+	return float64(soma) / float64(len(avaliacoes))
+}
+
+func imprimirInformacoesFilme(f Filme) {
+	fmt.Println("Título:", f.titulo)
+	fmt.Println("Diretor:", f.diretor)
+	fmt.Println("Ano:", f.ano)
+	fmt.Println("Avaliações:", f.avaliacoes)
+}
+
